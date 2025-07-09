@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .btn-primary {
+      background-color: #2563eb; /* Replace with your brand-600 color */
+      color: #fff;
+      font-weight: 500;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      border-radius: 0.5rem;
+      transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+      transition-duration: 150ms;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn-primary:hover {
+      background-color: #1d4ed8; /* Replace with your brand-700 color */
+  }
+}
