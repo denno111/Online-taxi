@@ -1,0 +1,73 @@
+name: Test Suite
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x, 20.x]
+
+    services:
+      mongodb:
+        image: mongo:5.0
+        ports:
+          - 27017:27017
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          cd backend
+          npm ci
+
+      - name: Run linting
+        run: |
+          cd backend
+          npm run lint
+
+      - name: Run unit tests
+        run: |
+          cd backend
+          npm test -- --testPathPattern="tests/(services|middleware|utils)" --coverage=false
+
+      - name: Run integration tests
+        run: |
+          cd backend
+          npm test -- --testPathPattern="tests/(controllers|integration)" --coverage=false
+
+      - name: Run performance tests
+        run: |
+          cd backend
+          npm test -- --testPathPattern="tests/performance" --coverage=false
+
+      - name: Generate coverage report
+        run: |
+          cd backend
+          npm run test:coverage
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./backend/coverage/lcov.info
+          flags: backend
+          name: backend-coverage
+
+      - name: Check coverage threshold
+        run: |
+          cd backend
+          npm run test:coverage -- --coverageThreshold='{"global":{"branches":80,"functions":80,"lines":80,"statements":80}}'

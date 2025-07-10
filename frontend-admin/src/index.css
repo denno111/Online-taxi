@@ -2,27 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  html {
-    font-family: 'Inter', system-ui, sans-serif;
-  }
-}
-
+/* 2. Your custom styles and layers come AFTER */
 @layer components {
+  .btn {
+    @apply px-4 py-2 rounded-md font-medium transition-colors;
+  }
   .btn-primary {
-      background-color: #2563eb; /* Replace with your brand-600 color */
-      color: #fff;
-      font-weight: 500;
-      padding-top: 0.5rem;
-      padding-bottom: 0.5rem;
-      padding-left: 1rem;
-      padding-right: 1rem;
-      border-radius: 0.5rem;
-      transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-      transition-duration: 150ms;
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .btn-primary:hover {
-      background-color: #1d4ed8; /* Replace with your brand-700 color */
+    /* Assuming you have defined primary-600 and primary-700 */
+    @apply bg-primary-600 text-white hover:bg-primary-700;
+  }
+  .btn-secondary {
+    /* You may need to define secondary-200 and secondary-700 in your config */
+    @apply bg-secondary-200 text-secondary-700 hover:bg-secondary-300;
   }
 }

@@ -1,0 +1,16 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "tailwindCSS.includeLanguages": {
+    "javascript": "javascript",
+    "html": "HTML"
+  },
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "git.ignoreLimitWarning": true
+}
+// This file contains settings for Visual Studio Code to enhance the development experience with Tailwind CSS and ESLint.
